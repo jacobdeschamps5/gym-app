@@ -2,7 +2,7 @@
 ```
 cd server
 npm install
-npm start
+npm start or npm run dev (nodemon)
 ```
 
 
