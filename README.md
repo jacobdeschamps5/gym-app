@@ -13,7 +13,7 @@ npm install
 npm run dev
 ```
 
-#Proxy
+# Proxy
 ```
 //vite.config.js
 
