@@ -30,4 +30,4 @@ export default defineConfig({
 })
 
 ```
-This configuration sets up a proxy in the client. The proxy redirects requests made to paths starting with '/api' to the local server running on 'http://localhost:8080'. Use for development convenience. 
+This configuration sets up a proxy in the client. The proxy redirects requests made to paths starting with '/api' to the local server running on 'http://localhost:8080'. Used for development convenience. 
