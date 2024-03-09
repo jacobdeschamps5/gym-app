@@ -15,6 +15,14 @@ const workouts = [
     {
         name: "Squat",
         muscle: "Legs" 
+    },
+    {
+        name: "Deadlift",
+        muscle: "Legs" 
+    },
+    {
+        name: "Lat Raises",
+        muscle: "Back" 
     }
 ]
 
