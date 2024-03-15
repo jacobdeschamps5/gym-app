@@ -3,6 +3,7 @@ import { FaHouse } from "react-icons/fa6";
 import { CgGym } from "react-icons/cg";
 import { TbTargetArrow } from "react-icons/tb";
 import { Link } from 'react-router-dom';
+import { IoMdBookmarks  } from 'react-icons/io';
 
 // Define the Tailwind CSS classes
 const iconClasses = 'transition duration-300 ease-in-out h-12 w-12 hover:bg-green-500 p-2 rounded-lg';
@@ -18,6 +19,9 @@ export default function NavBar(){
             </Link>
             <Link to="/Goals">
                 <TbTargetArrow className={iconClasses} />
+            </Link>
+            <Link to="/Programs">
+            <IoMdBookmarks  className={iconClasses} />
             </Link>
         </div>
     )

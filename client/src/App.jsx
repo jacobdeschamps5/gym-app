@@ -3,6 +3,7 @@ import NavBar from './components/Navbar';
 import Home from './components/Home';
 import Exercises from './components/Exercises';
 import Goals from './components/Goals';
+import Programs from './components/Programs';
 
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
         <Route index path="/" element={<Home />} />
         <Route path="/Exercises" element={<Exercises />} />
         <Route path="/Goals" element={<Goals />} />
+        <Route path="/Programs" element={<Programs />} />
       </Routes>
     </div>
   </div>
