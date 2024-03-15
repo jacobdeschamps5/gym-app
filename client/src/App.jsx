@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import NavBar from './components/Navbar';
 import Home from './components/Home';
-import Workouts from './components/Workouts';
+import Exercises from './components/Exercises';
 import Goals from './components/Goals';
 
 
@@ -14,7 +14,7 @@ function App() {
     <div className="flex-grow p-6 md">
       <Routes>
         <Route index path="/" element={<Home />} />
-        <Route path="/Workouts" element={<Workouts />} />
+        <Route path="/Exercises" element={<Exercises />} />
         <Route path="/Goals" element={<Goals />} />
       </Routes>
     </div>

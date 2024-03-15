@@ -13,7 +13,7 @@ export default function NavBar(){
             <Link to="/">
                 <FaHouse className={iconClasses} />
             </Link>
-            <Link to="/Workouts">
+            <Link to="/Exercises">
                 <CgGym className={iconClasses} />
             </Link>
             <Link to="/Goals">

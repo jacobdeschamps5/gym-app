@@ -7,26 +7,30 @@ const app = express();
 app.listen(PORT, () => console.log(`Server started on ${PORT}`));
 app.use(express.static(path.join(__dirname, '../client', 'dist')));
 
-const workouts = [
+const exercises = [
     {
+        id: 0,
         name: "Bench",
         muscle: "Chest" 
     },
     {
+        id: 1,
         name: "Squat",
         muscle: "Legs" 
     },
     {
+        id: 2,
         name: "Deadlift",
         muscle: "Legs" 
     },
     {
+        id: 3,
         name: "Lat Raises",
         muscle: "Back" 
     }
 ]
 
-app.get("/api/workouts", (req, res) =>{
-    res.send(workouts);
+app.get("/api/exercises", (req, res) =>{
+    res.send(exercises);
 })
 
