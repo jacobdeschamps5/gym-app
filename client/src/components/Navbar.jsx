@@ -21,7 +21,7 @@ export default function NavBar(){
                 <TbTargetArrow className={iconClasses} />
             </Link>
             <Link to="/Programs">
-            <IoMdBookmarks  className={iconClasses} />
+                <IoMdBookmarks  className={iconClasses} />
             </Link>
         </div>
     )
