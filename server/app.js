@@ -1,7 +1,6 @@
 const express = require('express');
 const path = require('path');
 
-
 const PORT = process.env.PORT || 8080;
 const app = express();
 app.listen(PORT, () => console.log(`Server started on ${PORT}`));
@@ -10,7 +9,7 @@ app.use(express.static(path.join(__dirname, '../client', 'dist')));
 const exercises = [
     {
         id: 0,
-        name: "Bench",
+        name: "Bench Press",
         muscle: "Chest" 
     },
     {
@@ -25,7 +24,7 @@ const exercises = [
     },
     {
         id: 3,
-        name: "Lat Raises",
+        name: "Lateral Raise",
         muscle: "Back" 
     }
 ]
