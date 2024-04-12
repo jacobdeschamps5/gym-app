@@ -9,8 +9,8 @@ const CreateProgramPopup = ({ onClose, onCreateProgram }) => {
     };
 
     return (
-        <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-75 z-10">
-            <div className="bg-white p-6 rounded shadow-lg">
+        <div className="fixed inset-0 flex items-center justify-center bg-neutral-800 bg-opacity-75 z-10">
+            <div className="bg-black p-6 rounded shadow-2xl">
                 <h2 className="text-lg font-semibold mb-4">Create Program</h2>
                 <input
                     type="text"
