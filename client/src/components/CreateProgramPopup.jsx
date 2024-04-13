@@ -5,6 +5,7 @@ import { IoIosArrowForward } from "react-icons/io";
 const CreateProgramPopup = ({ onClose, onCreateProgram }) => {
     const [programName, setProgramName] = useState('');
     const [selectedDayIndex, setSelectedDayIndex] = useState(0);
+    const [exercises, setExercises] = useState([]);
     const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
     const handlePreviousDay = () => {
@@ -15,9 +16,29 @@ const CreateProgramPopup = ({ onClose, onCreateProgram }) => {
         setSelectedDayIndex((selectedDayIndex + 1) % daysOfWeek.length);
     };
 
+    const handleAddExercise = () => {
+        // Here, you can implement the logic to add an exercise.
+        // For simplicity, let's just add a placeholder exercise for now.
+        setExercises([...exercises, { name: 'Exercise', day: daysOfWeek[selectedDayIndex] }]);
+    };
+
     const handleCreateProgram = () => {
-        onCreateProgram(programName, daysOfWeek[selectedDayIndex]);
+        const program = {
+            name: programName,
+            days: {}
+        };
+        
+        exercises.forEach(exercise => {
+            if (!program.days[exercise.day]) {
+                program.days[exercise.day] = [];
+            }
+            program.days[exercise.day].push(exercise.name);
+        });
+
+        console.log(program);
+        onCreateProgram(program);
         setProgramName('');
+        setExercises([]);
     };
 
     return (
@@ -40,6 +61,17 @@ const CreateProgramPopup = ({ onClose, onCreateProgram }) => {
                     <IoIosArrowForward className="text-green-500 h-8 w-8"
                         onClick={handleNextDay}/>
                 </div>
+
+                <div>
+                    {/* Display the added exercises for the selected day */}
+                    {exercises
+                        .filter(exercise => exercise.day === daysOfWeek[selectedDayIndex])
+                        .map((exercise, index) => (
+                            <div key={index} className="mb-2">
+                                {exercise.name} - {exercise.day}
+                            </div>
+                    ))}
+                </div>
                 <div className="flex justify-end">
                     <button
                         className="bg-green-500 text-white px-4 py-2 rounded mr-2"
@@ -50,6 +82,9 @@ const CreateProgramPopup = ({ onClose, onCreateProgram }) => {
                     <button className="bg-gray-300 text-gray-800 px-4 py-2 rounded" onClick={onClose}>
                         Cancel
                     </button>
+                    <button className="bg-blue-500 text-white px-4 py-2 rounded ml-2" onClick={handleAddExercise}>
+                        Add Exercise
+                    </button>
                 </div>
             </div>
         </div>
@@ -57,5 +92,3 @@ const CreateProgramPopup = ({ onClose, onCreateProgram }) => {
 };
 
 export default CreateProgramPopup;
-
-
