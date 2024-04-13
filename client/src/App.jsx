@@ -15,6 +15,7 @@ function App() {
         if (!response.ok) {
           throw new Error('Failed to fetch exercises');
         }
+
         const data = await response.json();
         setExercises(data);
       } catch (error) {
