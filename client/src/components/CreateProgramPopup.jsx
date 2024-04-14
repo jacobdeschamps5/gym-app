@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { IoIosArrowBack } from "react-icons/io";
 import { IoIosArrowForward } from "react-icons/io";
 
-const CreateProgramPopup = ({ exercises: initialExercises, onClose }) => {
+const CreateProgramPopup = ({ exercises: initialExercises, onClose, onCreateProgram }) => {
     const [programName, setProgramName] = useState('');
     const [selectedDayIndex, setSelectedDayIndex] = useState(0);
     const [selectedExercise, setSelectedExercise] = useState('');
@@ -58,6 +58,7 @@ const CreateProgramPopup = ({ exercises: initialExercises, onClose }) => {
                 console.log('Program created successfully');
                 setProgramName('');
                 setExercises([]);
+                onCreateProgram();
                 onClose();
             } else {
                 console.error('Failed to create program');
