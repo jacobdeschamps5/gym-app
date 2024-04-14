@@ -2,9 +2,11 @@ import React, { useState } from 'react';
 import { FaPlus } from "react-icons/fa";
 import CreateProgramPopup from './CreateProgramPopup';
 
-const Programs = () => {
+const Programs = ({exercises}) => {
     const [searchQuery, setSearchQuery] = useState('');
     const [showPopup, setShowPopup] = useState(false);
+
+    console.log(exercises);
 
     const togglePopup = () => {
         setShowPopup(!showPopup);
@@ -31,7 +33,7 @@ const Programs = () => {
                 <FaPlus />
             </div>
             {showPopup && (
-                <CreateProgramPopup onClose={togglePopup} onCreateProgram={handleCreateProgram} />
+                <CreateProgramPopup exercises={exercises} onClose={togglePopup} onCreateProgram={handleCreateProgram} />
             )}
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                 {/* Place your program cards here */}

@@ -1,7 +1,9 @@
 const express = require('express');
+const bodyParser = require('body-parser')
 const path = require('path');
 const mongoose = require('mongoose');
 const Exercise = require('./exercise');
+const Program = require('./program')
 
 const PORT = process.env.PORT || 8080;
 const app = express();
@@ -18,6 +20,7 @@ mongoose.connect(mongoURI)
     })
 
 app.use(express.static(path.join(__dirname, '../client', 'dist')));
+app.use(bodyParser.json());
 
 app.get("/api/exercises", async (req, res) => {
     try {
@@ -27,4 +30,33 @@ app.get("/api/exercises", async (req, res) => {
       console.error('Error fetching exercises:', error);
       res.status(500).send('Internal server error');
     }
+});
+
+app.get("/api/programs", async (req, res) => {
+  try {
+      const programs = await Program.find();
+
+      res.json(programs);
+  } catch (error) {
+      console.error("Error fetching programs:", error);
+      res.status(500).json({ error: "Failed to fetch programs" });
+  }
+});
+
+app.post("/api/programs", async (req, res) => {
+  const { name, days } = req.body;
+  try {
+      const newProgram = new Program({
+          name,
+          days
+      });
+
+      const savedProgram = await newProgram.save();
+
+      res.status(201).json(savedProgram);
+  } catch (error) {
+      // Handle errors
+      console.error("Error saving program:", error);
+      res.status(500).json({ error: "Failed to save program" });
+  }
 });
