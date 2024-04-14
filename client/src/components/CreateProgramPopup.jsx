@@ -45,19 +45,27 @@ const CreateProgramPopup = ({ exercises: initialExercises, onClose }) => {
             }
         });
 
+        try {
+            const response = await fetch('/api/programs', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(program)
+            });
+            
+            if (response.ok) {
+                console.log('Program created successfully');
+                setProgramName('');
+                setExercises([]);
+                onClose();
+            } else {
+                console.error('Failed to create program');
+            }
+        } catch (error) {
+            console.error('Error:', error);
+        }
 
-        console.log(program);
-
-        const response = await fetch('/api/programs', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(program)
-        });
-
-        setProgramName('');
-        setExercises([]);
     };
 
     return (
