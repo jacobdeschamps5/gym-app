@@ -9,7 +9,7 @@ const exerciseSchema = new mongoose.Schema({
   type: String,
   how_to: [String],
   image_link: String,
-  exercise_id: Number
+  exercise_id: Number,
 });
 
 const Exercise = mongoose.model('Exercise', exerciseSchema);

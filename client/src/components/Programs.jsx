@@ -4,7 +4,7 @@ import { IoIosArrowBack } from "react-icons/io";
 import { IoIosArrowForward } from "react-icons/io";
 import CreateProgramPopup from './CreateProgramPopup';
 
-const Program = ({ program, exercises }) => {
+const Program = ({ program, isActive, setActive }) => {
     const [selectedDayIndex, setSelectedDayIndex] = useState(0);
     const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
@@ -17,10 +17,10 @@ const Program = ({ program, exercises }) => {
     };
 
     return (
-        <div className="bg-black border text-white p-4 rounded shadow-md mb-4">
+        <div className={`bg-black border text-white p-4 rounded shadow-md mb-4 ${isActive ? 'active-program' : ''}`}>
             <h3 className="text-lg font-semibold mb-2">{program.name}</h3>
             <div className="flex justify-start items-center mb-2">
-                <IoIosArrowBack className=" text-green-500 h-8 w-8" onClick={handlePrevDay}/>
+                <IoIosArrowBack className="text-green-500 h-8 w-8" onClick={handlePrevDay}/>
                 <span className='mx-2'>{daysOfWeek[selectedDayIndex]}</span>
                 <IoIosArrowForward className="text-green-500 h-8 w-8" onClick={handleNextDay}/>
             </div>
@@ -31,6 +31,9 @@ const Program = ({ program, exercises }) => {
                     ))}
                 </ul>
             )}
+            <button onClick={() => setActive(program)} className={`px-4 py-2 rounded mt-2 ${isActive ? 'bg-green-500 text-white' : 'bg-red-500 text-white'}`}>
+                {isActive ? 'Active' : 'Set Active'}
+            </button>
         </div>
     );
 };
@@ -40,6 +43,7 @@ const Programs = ({ exercises }) => {
     const [searchQuery, setSearchQuery] = useState('');
     const [showPopup, setShowPopup] = useState(false);
     const [programs, setPrograms] = useState([]);
+    const [activeProgram, setActiveProgram] = useState(null);
 
     const fetchPrograms = async () => {
         try {
@@ -47,9 +51,16 @@ const Programs = ({ exercises }) => {
             if (!response.ok) {
                 throw new Error('Failed to fetch programs');
             }
-
+    
             const data = await response.json();
             setPrograms(data);
+    
+            const activeProgram = data.find(program => program.isActive);
+            if (activeProgram) {
+                setActiveProgram(activeProgram); // Set the active program
+            } else {
+                setActiveProgram(null); // Reset active program if none found
+            }
         } catch (error) {
             console.error('Error fetching programs:', error);
         }
@@ -62,6 +73,41 @@ const Programs = ({ exercises }) => {
     const handleCreateProgram = async () => {
         setShowPopup(false);
         fetchPrograms();
+    };
+
+    const handleSetActive = async (program) => {
+        try {
+
+            if (activeProgram !== program) {
+                console.log("Activate: " + program);
+                
+                const response = await fetch(`/api/programs/${program._id}/activate`, {
+                    method: 'PUT', 
+                    headers: {
+                        'Content-Type': 'application/json',          
+                    },
+                });
+            }
+            else {
+                await fetch(`/api/programs/${program._id}/deactivate`, {
+                    method: 'PUT', 
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+
+                });            
+            }
+    
+            setActiveProgram((prevActiveProgram) => {
+                if (prevActiveProgram === program) {
+                    return null; 
+                } else {
+                    return program; 
+                }
+            });
+        } catch (error) {
+            console.error('Error activating program:', error);
+        }
     };
 
     return (
@@ -83,7 +129,13 @@ const Programs = ({ exercises }) => {
 
             <div>
                 {programs.map((program) => (
-                    <Program key={program._id} program={program} exercises={exercises} />
+                    <Program 
+                        key={program._id} 
+                        program={program} 
+                        exercises={exercises} 
+                        isActive={activeProgram == program} 
+                        setActive={handleSetActive}
+                    />
                 ))}
             </div>
         </div>
@@ -91,4 +143,3 @@ const Programs = ({ exercises }) => {
 };
 
 export default Programs;
-

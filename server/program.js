@@ -16,7 +16,8 @@ const programSchema = new mongoose.Schema({
         Thursday: [exerciseSchema],
         Friday: [exerciseSchema],
         Saturday: [exerciseSchema]
-    }
+    },
+    isActive: Boolean
 });
 
 const Program = mongoose.model('Program', programSchema);

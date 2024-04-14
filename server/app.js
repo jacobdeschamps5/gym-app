@@ -48,15 +48,59 @@ app.post("/api/programs", async (req, res) => {
   try {
       const newProgram = new Program({
           name,
-          days
+          days,
+          isActive: false
       });
 
       const savedProgram = await newProgram.save();
 
       res.status(201).json(savedProgram);
   } catch (error) {
-      // Handle errors
       console.error("Error saving program:", error);
       res.status(500).json({ error: "Failed to save program" });
   }
+});
+
+
+
+app.put('/api/programs/:id/activate', async (req, res) => {
+    const { id } = req.params;
+    try {
+        await Program.updateMany({ _id: { $ne: id } }, { $set: { isActive: false } });
+    
+        const program = await Program.findByIdAndUpdate(id, { isActive: true }, { new: true });
+        if (!program) {
+            return res.status(404).json({ error: 'Program not found' });
+        }
+        res.json({ message: 'Program activated successfully', program });
+    } catch (error) {
+        res.status(500).json({ error: 'Error activating program' });
+    }
+});
+
+
+app.put('/api/programs/:id/deactivate', async (req, res) => {
+    const { id } = req.params;
+    try {
+        const program = await Program.findByIdAndUpdate(id, { isActive: false }, { new: true });
+        if (!program) {
+            return res.status(404).json({ error: 'Program not found' });
+        }
+        res.json({ message: 'Program deactivated successfully', program });
+    } catch (error) {
+        res.status(500).json({ error: 'Error deactivating program' });
+    }
+});
+
+
+app.get('/api/programs/active', async (req, res) => {
+    try {
+        const activeProgram = await Program.findOne({ isActive: true });
+        if (!activeProgram) {
+            return res.status(404).json({ error: 'Active program not found' });
+        }
+        res.json(activeProgram);
+    } catch (error) {
+        res.status(500).json({ error: 'Error fetching active program' });
+    }
 });
