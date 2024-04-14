@@ -35,7 +35,7 @@ function App() {
         <Routes>
           <Route index path="/" element={<Home />} />
           <Route path="/Exercises" element={<Exercises exercises={exercises} />} />
-          <Route path="/Programs" element={<Programs />} />
+          <Route path="/Programs" element={<Programs exercises={exercises} />} />
         </Routes>
       </div>
     </div>
