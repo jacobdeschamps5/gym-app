@@ -33,8 +33,8 @@ const Exercises = ({ exercises }) => {
         />
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {filteredExercises.map(exercise => (
-            <div key={exercise.id} className="border border-gray-300 rounded-md p-4 relative" onClick={() => handleExerciseClick(exercise)} >
-              <button className="absolute top-0 right-0 p-3 text-3xl text-gray-600 hover:text-white" onClick={() => { console.log("Add exercise:", exercise.name); }}>
+            <div key={exercise.id} className="border border-gray-300 md p-4 relative bg-neutral-700 hover:text-green-500 hover:border-green-500" onClick={() => handleExerciseClick(exercise)} >
+              <button className="absolute top-0 right-0 p-3 text-3xl text-gray-400 hover:text-white" onClick={() => { console.log("Add exercise:", exercise.name); }}>
                 +
               </button>
               <h3 className="text-xl font-bold">{exercise.title}</h3>
