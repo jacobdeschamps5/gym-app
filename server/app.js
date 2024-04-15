@@ -19,7 +19,7 @@ mongoose.connect(mongoURI)
         console.log(error);
     })
 
-app.use(express.static(path.join(__dirname, '../client', 'dist')));
+app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.json());
 
 app.get("/api/exercises", async (req, res) => {

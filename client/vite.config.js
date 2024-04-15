@@ -7,5 +7,8 @@ export default defineConfig({
       '/api': 'http://localhost:8080'
     } : {}
   },
-  plugins: [react()]
+  plugins: [react()],
+  build: {
+    outDir: '../server/public',
+  },
 });
