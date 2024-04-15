@@ -104,3 +104,7 @@ app.get('/api/programs/active', async (req, res) => {
         res.status(500).json({ error: 'Error fetching active program' });
     }
 });
+
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'index.html'));
+});
