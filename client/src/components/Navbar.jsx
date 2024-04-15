@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { FaHouse } from "react-icons/fa6";
 import { CgGym } from "react-icons/cg";
-import { IoMdBookmarks  } from 'react-icons/io';
+import { IoMdBookmarks, IoMdStats  } from 'react-icons/io';
 import { Link } from 'react-router-dom';
 
 // Define the Tailwind CSS classes
@@ -18,6 +18,8 @@ export default function NavBar(){
             return 'exercises';
         } else if (pathname === "/Programs") {
             return 'programs';
+        } else if (pathname === "/Stats") {
+            return 'stats';
         } else if (pathname === "/") {
             return 'home'; 
         }
@@ -41,6 +43,9 @@ export default function NavBar(){
             </Link>
             <Link to="/Programs" onClick={() => handleIconClick('programs')}>
                 <IoMdBookmarks className={`${iconClasses} ${selectedIcon === 'programs' ? selectedIconClasses : ''}`} />
+            </Link>
+            <Link to="/Stats" onClick={() => handleIconClick('stats')}>
+                <IoMdStats className={`${iconClasses} ${selectedIcon === 'stats' ? selectedIconClasses : ''}`} />
             </Link>
         </div>
     )

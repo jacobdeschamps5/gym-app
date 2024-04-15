@@ -4,6 +4,7 @@ import NavBar from './components/Navbar';
 import Home from './components/Home';
 import Exercises from './components/Exercises';
 import Programs from './components/Programs';
+import Stats from './components/Stats';
 
 function App() {
   const [exercises, setExercises] = useState([]);
@@ -36,6 +37,7 @@ function App() {
           <Route index path="/" element={<Home />} />
           <Route path="/Exercises" element={<Exercises exercises={exercises} />} />
           <Route path="/Programs" element={<Programs exercises={exercises} />} />
+          <Route path="/Stats" element={<Stats />} />
         </Routes>
       </div>
     </div>
