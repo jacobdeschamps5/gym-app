@@ -119,8 +119,8 @@ const Home = () => {
             <div className="flex-grow w-full overflow-x-auto">
                 <div className="flex justify-center min-w-max">
                     {daysOfWeek.map((day, index) => (
-                        <div className='flex flex-col items-center gap-2' key={index}>
-                            <div className="border border-gray-300 p-4 relative text-white h-20 w-40 flex flex-col items-center justify-center">
+                        <div className='border border-gray-300 flex flex-col items-center gap-2' key={index}>
+                            <div className="m-3 p-4 relative text-white h-20 w-40 flex flex-col items-center justify-center">
                                 <p className="text-xs font-bold">{day.date}</p>
                                 <h2 className="text-l font-bold">{day.name}</h2>
                             </div>
@@ -137,18 +137,18 @@ const Home = () => {
                                                     incrementStatValue("workouts_completed");
                                                     setCompletedTask(day.date);
                                                 }} className={`px-4 py-2 rounded mt-2 bg-green-500 text-white`}>
-                                            Complete
-                                        </button>
+                                                    Complete
+                                                </button>
                                             }
-                                </div>
-                            ))}
+                                        </div>
+                                    ))}
 
+                                </div>
+                            )}
                         </div>
-                    )}
-                </div>
                     ))}
+                </div>
             </div>
-        </div>
         </div >
     );
 };

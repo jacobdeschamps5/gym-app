@@ -17,7 +17,7 @@ const Program = ({ program, isActive, setActive }) => {
     };
 
     return (
-        <div className={`bg-black border text-white p-4 rounded shadow-md mb-4 ${isActive ? 'active-program' : ''}`}>
+        <div className={`bg-black border text-white p-4 shadow-md mb-4 bg-neutral-700 ${isActive ? 'active-program' : ''}`}>
             <h3 className="text-lg font-semibold mb-2">{program.name}</h3>
             <div className="flex justify-start items-center mb-2">
                 <IoIosArrowBack className="text-green-500 h-8 w-8" onClick={handlePrevDay}/>
