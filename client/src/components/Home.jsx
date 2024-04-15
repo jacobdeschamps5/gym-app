@@ -1,16 +1,17 @@
 import React, { useState, useEffect } from 'react';
+import { incrementStatValue } from '../stats';
 
 const getStartOfWeek = (d) => {
-  const date = new Date(d);
-  const day = date.getDay();
-  const diff = date.getDate() - day;
-  return new Date(date.setDate(diff));
+    const date = new Date(d);
+    const day = date.getDay();
+    const diff = date.getDate() - day;
+    return new Date(date.setDate(diff));
 };
 
 const addDays = (date, days) => {
-  const result = new Date(date);
-  result.setDate(result.getDate() + days);
-  return result;
+    const result = new Date(date);
+    result.setDate(result.getDate() + days);
+    return result;
 };
 
 const Home = () => {
@@ -19,6 +20,7 @@ const Home = () => {
     const [hasNavigated, setHasNavigated] = useState(false);
     const [activeProgram, setActiveProgram] = useState(null);
     const [exerciseData, setExerciseData] = useState({});
+    const [completedTasks, setCompletedTasks] = useState(JSON.parse(localStorage.getItem("completed_dates")) ?? []);
 
     const fetchActiveProgram = async () => {
         try {
@@ -72,13 +74,22 @@ const Home = () => {
         };
     });
 
+    function setCompletedTask(date) {
+        const newCompleted = [
+            ...completedTasks,
+            date
+        ];
+        localStorage.setItem("completed_dates", JSON.stringify(newCompleted));
+        setCompletedTasks(newCompleted);
+    }
+
     return (
         <div className="flex flex-col items-center">
             <h2 className="text-2xl font-bold mb-4">Home</h2>
-                        
+
             <div className="flex w-full justify-between items-center mb-4 px-4">
                 {hasNavigated && (
-                    <button 
+                    <button
                         className="text-white bg-blue-500 hover:bg-blue-700 px-4 py-2 rounded"
                         onClick={handlePreviousWeek}
                     >
@@ -87,7 +98,7 @@ const Home = () => {
                 )}
                 <div className="flex-grow" /> {}
                 {hasNavigated && (
-                    <button 
+                    <button
                         className="text-white bg-green-500 hover:bg-green-700 px-4 py-2 rounded"
                         onClick={handleCurrentWeek}
                     >
@@ -95,7 +106,7 @@ const Home = () => {
                     </button>
                 )}
                 <div className="flex-grow" /> {}
-                <button 
+                <button
                     className="text-white bg-blue-500 hover:bg-blue-700 px-4 py-2 rounded"
                     onClick={handleNextWeek}
                 >
@@ -115,21 +126,30 @@ const Home = () => {
                             </div>
                             {activeProgram && exerciseData[day.name] && (
                                 <div>
-                                        {exerciseData[day.name].map((exercise, idx) => (
-                                            <div className='mb-2 border border-gray-300 p-4 py-2 relative text-white bg-neutral-700 w-40' key={idx}>
-                                                <p className='font-bold'>{exercise.name}</p>
-                                                <p>Sets: {exercise.sets}</p>
-                                                <p>Reps: {exercise.reps}</p>
-                                            </div>
-                                        ))}
-
+                                    {exerciseData[day.name].map((exercise, idx) => (
+                                        <div className='mb-2 border border-gray-300 p-4 py-2 relative text-white bg-neutral-700 w-40' key={idx}>
+                                            <p className='font-bold'>{exercise.name}</p>
+                                            <p>Sets: {exercise.sets}</p>
+                                            <p>Reps: {exercise.reps}</p>
+                                            {
+                                                completedTasks.includes(day.date) ||
+                                                < button onClick={() => {
+                                                    incrementStatValue("workouts_completed");
+                                                    setCompletedTask(day.date);
+                                                }} className={`px-4 py-2 rounded mt-2 bg-green-500 text-white`}>
+                                            Complete
+                                        </button>
+                                            }
                                 </div>
-                            )}
+                            ))}
+
                         </div>
-                    ))}
+                    )}
                 </div>
+                    ))}
             </div>
         </div>
+        </div >
     );
 };
 
